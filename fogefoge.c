@@ -2,44 +2,7 @@
 #include <stdlib.h>
 #include "fogefoge.h"
 
-struct mapa m;
-
-void alocamapa() {
-    m.matriz = malloc(sizeof(char*) *m.linhas);
-    for (int i = 0; i <     malinhas; i++) {
-        m.matriz[i] = malloc(sizeof(char) * (colunas + 1));
-    }
-}
-
-void lemapa() {
-    FILE* f = fopen("mapa.txt", "r");
-    if (f == NULL) {
-        printf("erro");
-        exit(1);
-    }
-    fscanf(f, "%d %d", &linhas, &colunas);
-    printf("linhas %d, colunas %d\n", linhas, colunas);
-
-    alocamapa();
-
-    for (int i = 0; i < linhas; i++) {
-        fscanf(f, "%s", mapa[i]);
-    }
-    fclose(f);
-}
-
-void imprimemapa() {
-    for (int i = 0; i < linhas; i++) {
-        printf("%s\n", mapa[i]);
-    }
-}
-
-void liberamapa() {
-    for (int i = 0; i < linhas; i++) {
-        free(mapa[i]);
-    }
-    free(mapa);
-}
+MAPA m;
 
 int acabou() {
     return 0;
@@ -60,7 +23,7 @@ void move(char direcao) {
     }
     switch (direcao) {
         case 'a':
-            mapa[x][y-1] = '@';
+            matriz[x][y-1] = '@';
             break;
         case 'd':
             mapa[x][y+1] = '@';
