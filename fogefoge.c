@@ -85,6 +85,6 @@ int main() {
         char comando;
         scanf(" %c", &comando);
         move(comando);
-
+        printf("\n");
     }while(!acabou());
 }
