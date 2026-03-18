@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fogefoge.h"
+#include "mapa.h"
 
 MAPA m;
 
@@ -12,9 +13,9 @@ void move(char direcao) {
     int x;
     int y;
 
-    for (int i = 0; i < linhas; i++) {
-        for (int j =0; j < colunas; j++) {
-            if (mapa[i][j] == '@') {
+    for (int i = 0; i < m.linhas; i++) {
+        for (int j =0; j < m.colunas; j++) {
+            if (m.matriz[i][j] == '@') {
                 x = i;
                 y = j;
                 break;
@@ -23,31 +24,33 @@ void move(char direcao) {
     }
     switch (direcao) {
         case 'a':
-            matriz[x][y-1] = '@';
+            m.matriz[x][y-1] = '@';
             break;
         case 'd':
-            mapa[x][y+1] = '@';
+            m.matriz[x][y+1] = '@';
             break;
         case 'w':
-            mapa[x-1][y] = '@';
+            m.matriz[x-1][y] = '@';
             break;
         case 's':
-            mapa[x+1][y] = '@';
+            m.matriz[x+1][y] = '@';
             break;
     }
-    mapa[x][y] = '.';
+    m.matriz[x][y] = '.';
 
 }
 
 int main() {
 
-    lemapa();
+    lemapa(&m);
 
     do {
-        imprimemapa();
+        imprimemapa(&m);
         char comando;
         scanf(" %c", &comando);
         move(comando);
         printf("\n");
     }while(!acabou());
+
+    liberamapa(&m);
 }
