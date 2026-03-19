@@ -4,45 +4,56 @@
 #include "mapa.h"
 
 MAPA m;
+POSICAO heroi;
 
 int acabou() {
     return 0;
 }
 
-void move(char direcao) {
-    int x;
-    int y;
+int ehdirecao(char direcao) {
+    return(direcao == 'w' || direcao == 'a' || direcao == 's' || direcao == 'd');
+}
 
-    for (int i = 0; i < m.linhas; i++) {
-        for (int j =0; j < m.colunas; j++) {
-            if (m.matriz[i][j] == '@') {
-                x = i;
-                y = j;
-                break;
-            }
-        }
+void move(char direcao) {
+    if (!ehdirecao(direcao)) {
+        printf("direcao invalida!");
+        return;
     }
+
+    int proximox = heroi.x;
+    int proximoy = heroi.y;
+
     switch (direcao) {
         case 'a':
-            m.matriz[x][y-1] = '@';
+            proximoy--;
             break;
         case 'd':
-            m.matriz[x][y+1] = '@';
+            proximoy++;
             break;
         case 'w':
-            m.matriz[x-1][y] = '@';
+            proximox--;
             break;
         case 's':
-            m.matriz[x+1][y] = '@';
+            proximox++;
             break;
     }
-    m.matriz[x][y] = '.';
+
+    if (!ehvalida(&m, proximox, proximoy))
+        return;
+
+    if (!ehvazia(&m, proximox, proximoy))
+        return;
+
+    andamapa(&m, heroi.x, heroi.y, proximox, proximoy);
+    heroi.x = proximox;
+    heroi.y = proximoy;
 
 }
 
 int main() {
 
     lemapa(&m);
+    encontramapa(&m, &heroi, '@');
 
     do {
         imprimemapa(&m);

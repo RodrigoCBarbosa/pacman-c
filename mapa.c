@@ -2,6 +2,41 @@
 #include <stdlib.h>
 #include "mapa.h"
 
+
+int ehvalida(MAPA* m, int x, int y) {
+    if (x >= m->linhas)
+        return 0;
+    if (y >= m->colunas)
+        return 0;
+
+    return 1;
+}
+
+int ehvazia(MAPA*m, int x, int y) {
+    return(m->matriz[x][y] == '.');
+}
+
+int andamapa(MAPA* m, int xorigem, int yorigem, int xdestino, int ydestino) {
+    char personagem = m->matriz[xorigem][yorigem];
+    m->matriz[xdestino][ydestino] = personagem;
+    m->matriz[xorigem][yorigem] = '.';
+}
+
+void encontramapa(MAPA* m, POSICAO* p, char c) {
+
+    for (int i = 0; i < m->linhas; i++) {
+        for (int j =0; j < m->colunas; j++) {
+            if (m->matriz[i][j] == c) {
+                p->x = i;
+                p->y = j;
+                return;
+            }
+        }
+    }
+}
+
+
+
 void alocamapa(MAPA* m) {
     m->matriz = malloc(sizeof(char*) * m->linhas);
     for (int i = 0; i < m->linhas; i++) {
