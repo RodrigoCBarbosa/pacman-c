@@ -13,7 +13,7 @@ void fantasmas() {
     copiamapa(&copia, &m);
 
     for (int i = 0; i < m.linhas; i++){
-        for (int j = 0; i < m.colunas; j++) {
+        for (int j = 0; j < m.colunas; j++) {
 
             if (copia.matriz[i][j] == FANTASMA) {
                 if (ehvalida(&m, i , j+1) && (ehvazia(&m, i, j+1))) {
@@ -24,6 +24,7 @@ void fantasmas() {
             }
         }
     }
+    liberamapa(&copia);
 }
 
 int acabou() {
@@ -31,7 +32,7 @@ int acabou() {
 }
 
 int ehdirecao(char direcao) {
-    return(direcao == 'w' || direcao == 'a' || direcao == 's' || direcao == 'd');
+    return(direcao == CIMA || direcao == ESQUERDA || direcao == BAIXO || direcao == DIREITA);
 }
 
 void move(char direcao) {

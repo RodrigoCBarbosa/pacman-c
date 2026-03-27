@@ -18,6 +18,11 @@ int ehvalida(MAPA* m, int x, int y) {
         return 0;
     if (y >= m->colunas)
         return 0;
+    if (x < 0)
+        return 0;
+    if (y < 0)
+        return 0;
+    
 
     return 1;
 }
